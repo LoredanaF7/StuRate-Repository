@@ -1,87 +1,14 @@
-/* Reset default margin and padding */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-  }
-  
-  /* Set background image */
-  body {
-    background-image: url('https://www.unt.edu/allabout/images/16_854_bustling-campus-behind-eagle-statue-aerial-1001.jpg'); /* UNT image that we can change if we want */
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-family: Arial, sans-serif;
-  }
-  
-  /* Container for title, search bar, and buttons */
-  .container {
-    text-align: center;
-    background: rgba(255, 255, 255, 0.8); /* Semi-transparent white background */
-    padding: 2rem;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-  }
-  
-  /* Title styling */
-  .title {
-    font-size: 2.5rem;
-    margin-bottom: 1rem;
-    color: #333;
-  }
-  
-  /* Search bar styling */
-  .search-bar {
-    width: 100%;
-    padding: 0.75rem;
-    font-size: 1rem;
-    border: 2px solid #ccc;
-    border-radius: 5px;
-    margin-bottom: 1rem;
-    outline: none;
-  }
-  
-  .search-bar:focus {
-    border-color: #007BFF;
-  }
-  
-  /* Buttons container */
-  .buttons {
-    display: flex;
-    justify-content: center;
-    gap: 1rem; /* Space between buttons */
-  }
-  
-  /* Button styling */
-  .btn {
-    padding: 0.75rem 1.5rem;
-    font-size: 1rem;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  .login-btn {
-    background-color: #007BFF;
-    color: white;
-  }
+/* Box styling for the search bar section */
+.search-bar-container {
+    position: absolute; /*keeps it positioned relative to the viewpoint */
+    background: rgba(255, 255, 255, 0.9); /* Light background to contrast with the main background */
+    padding: 15px; /* Add spacing inside the box */
+    border-radius: 10px; /* Rounded corners for a smooth look */
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%); /*centers it exactly */
+    width: 50%;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2); /* Subtle shadow for depth */
+    text-align: center; /* Centers the content inside */
+}
 
-  /*what it looks like while hovering over button*/
-  .login-btn:hover {
-    background-color: #0056b3;
-  }
-  
-  .signup-btn {
-    background-color: #28a745;
-    color: white;
-  }
-
-  /*what it looks like while hovering over button*/
-  .signup-btn:hover {
-    background-color: #218838;
-  }
