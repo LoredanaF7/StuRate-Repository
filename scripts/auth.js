@@ -64,6 +64,10 @@ signupForm.addEventListener('submit', (e) => {
     const modal = document.querySelector('#modal-signup');
     M.Modal.getInstance(modal).close();
     signupForm.reset();
+    
+    window.location.href = "profileedit.html"; // redirect to profileedit.html when done signing up
+  }).catch(err => {
+    console.log(err.message); //for any possible error
   }); 
 });
 
