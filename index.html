@@ -26,6 +26,9 @@
             <a href="#" class="grey-text modal-trigger" data-target="modal-account">Account</a>
           </li>
           <li class="logged-in" style="display: none;">
+            <a href="#" class="grey-text" id="profile">Profile</a>
+          </li>
+          <li class="logged-in" style="display: none;">
             <a href="#" class="grey-text" id="logout">Logout</a>
           </li>
           <!--
@@ -129,6 +132,9 @@
         if (event.key === "Enter") { // Check if Enter key is pressed
             window.location.href = "result.html"; // Redirect to results page
         }
+    });
+    document.getElementById("profile").addEventListener("click", function() {
+    window.location.href = "profileedit.html"; // Redirect to profile page
     });
 </script>
 
