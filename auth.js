@@ -1,4 +1,5 @@
 
+
 import { getAuth, onAuthStateChanged, createUserWithEmailAndPassword, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-auth.js";
 import { getFirestore, collection, getDocs, addDoc, onSnapshot, setDoc, doc } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-firestore.js";
 //import { auth } from './index.html'; // import the initialized auth from your firebase.js
@@ -63,6 +64,10 @@ signupForm.addEventListener('submit', (e) => {
     const modal = document.querySelector('#modal-signup');
     M.Modal.getInstance(modal).close();
     signupForm.reset();
+    
+    window.location.href = "profileedit.html"; // redirect to profileedit.html when done signing up
+  }).catch(err => {
+    console.log(err.message); //for any possible error
   }); 
 });
 
