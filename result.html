@@ -23,8 +23,8 @@
       <!-- SEARCH BAR -->
       <div class="search-box">
         <div class="row">
-          <input type="text" id="input-box" placeholder="Member name" autocomplete="off">
-          <button><i class="fa-solid fa-magnifying-glass"></i></button>
+          <input type="text" id="input-box" placeholder="Search for students..." autocomplete="off">
+          <button id="search-button"><i class="fa-solid fa-magnifying-glass"></i></button>
         </div>
       </div>
       <div class="result-box"></div>
@@ -55,29 +55,29 @@
   </nav>
 
   <!-- SIGN UP MODAL -->
-  <!-- <div id="modal-signup" class="modal"> -->
-    <!-- <div class="modal-content"> -->
-      <!-- <h4>Sign up</h4><br /> -->
-      <!-- <form id="signup-form"> -->
-        <!-- <div class="input-field"> -->
-          <!-- <input type="email" id="signup-email" required /> -->
-          <!-- <label for="signup-email">Email address</label> -->
-        <!-- </div> -->
-        <!-- <div class="input-field"> -->
-          <!-- <input type="password" id="signup-password" required /> -->
-          <!-- <label for="signup-password">Choose password</label> -->
-        <!-- </div> -->
-        <!-- <div class="input-field">                         <!--this div adds a bio field in the sign up tabe of the--> -->
-          <!-- <input type="text" id="signup-bio" required /> -->
-          <!-- <label for="signup-bio">One Line Bio</label> -->
-        <!-- </div> -->
-        <!-- <button class="btn yellow darken-2 z-depth-0">Sign up</button> -->
-      <!-- </form> -->
-    <!-- </div> -->
-  <!-- </div> -->
+  <div id="modal-signup" class="modal">
+    <div class="modal-content">
+      <h4>Sign up</h4><br />
+      <form id="signup-form">
+        <div class="input-field">
+          <input type="email" id="signup-email" required />
+          <label for="signup-email">Email address</label>
+        </div>
+        <div class="input-field">
+          <input type="password" id="signup-password" required />
+          <label for="signup-password">Choose password</label>
+        </div>
+        <div class="input-field">                         this div adds a bio field in the sign up tabe of the
+          <input type="text" id="signup-bio" required />
+          <label for="signup-bio">One Line Bio</label>
+        </div>
+        <button class="btn yellow darken-2 z-depth-0">Sign up</button>
+      </form>
+    </div>
+  </div>
 
   <!-- LOGIN MODAL -->
-<!--   <div id="modal-login" class="modal">
+  <div id="modal-login" class="modal">
     <div class="modal-content">
       <h4>Login</h4><br />
       <form id="login-form">
@@ -92,10 +92,39 @@
         <button class="btn yellow darken-2 z-depth-0">Login</button>
       </form>
     </div>
-  </div> -->
+  </div>
 
-  <h1>Search Results</h1>
+  <h1 id="results">Search Results</h1>
   <!-- Display your results here -->
+
+  <!-- Search results script -->
+  <script>
+    var getSearch = localStorage.getItem("searchQuery");
+    console.log("Searched for:", getSearch);
+    var h1 = document.getElementById("results");
+
+    h1.innerHTML = "Search results for '";
+    h1.innerHTML = h1.innerHTML.concat(getSearch);
+    h1.innerHTML = h1.innerHTML.concat("'");
+  </script>
+
+  <!-- Search in search results page script -->
+  <script>
+    document.getElementById("input-box").addEventListener("keypress", function(event) {
+        if (event.key === "Enter") { // Check if Enter key is pressed
+            var input = document.getElementById("input-box");
+            var value = input.value;
+            localStorage.setItem('searchQuery', value);
+            window.location.href = "result.html"; // Redirect to results page
+        }
+    });
+    document.getElementById("search-button").addEventListener("click", function(event) {
+        var input = document.getElementById("input-box");
+        var value = input.value;
+        localStorage.setItem('searchQuery', value);
+        window.location.href = "result.html"; // Redirect to results page
+    });
+  </script>
 
   <!-- Add Firebase SDK imports here if needed -->
   <script type="module">
@@ -123,3 +152,9 @@
   <script src="autocomplete.js"></script>
 </body>
 </html>
+
+
+
+<!-- Variable Loading Resources -->
+<!-- Saving local variables - https://www.cloudsurph.com/how-to-pass-variables-from-an-html-page-to-another-with-javascript/#:~:text=location%20object%20to%20accomplish%20this,across%20different%20pages%20and%20sessions. -->
+<!-- Changing h1 - https://www.shecodes.io/athena/11529-how-to-change-h1-elements-based-on-if-else-statements-with-javascript#:~:text=To%20change%20the%20content%20of%20an%20h1%20tag%20based%20on,and%20change%20its%20innerHTML%20property. -->
