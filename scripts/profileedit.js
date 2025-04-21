@@ -13,6 +13,8 @@ profileForm.addEventListener('submit', async (e) => {
   e.preventDefault();
 
   // Get form values
+  const firstName = profileForm['firstName'].value;
+  const lastName = profileForm['lastName'].value;
   const year = profileForm['year'].value;
   const classes = profileForm['classes'].value;
   const projects = profileForm['projects'].value;
@@ -47,6 +49,8 @@ profileForm.addEventListener('submit', async (e) => {
   // Save profile data to Firestore
   try {
     await setDoc(doc(db, 'users', user.uid), {
+      firstName,
+      lastName,
       year,
       classes,
       projects,
