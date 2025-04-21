@@ -1,3 +1,4 @@
+import { doc, getDoc } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-firestore.js";
 import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-firestore.js";
 import { getAuth } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-auth.js";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-storage.js";
@@ -66,4 +67,16 @@ profileForm.addEventListener('submit', async (e) => {
     console.error('Error updating profile: ', err);
     alert('Something went wrong saving your profile.');
   }
+  
+});
+
+// setup materialize components
+document.addEventListener('DOMContentLoaded', function() {
+
+  var modals = document.querySelectorAll('.modal');
+  M.Modal.init(modals);
+
+  var items = document.querySelectorAll('.collapsible');
+  M.Collapsible.init(items);
+
 });
