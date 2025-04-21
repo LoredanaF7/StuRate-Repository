@@ -129,11 +129,14 @@
   <script>
     document.getElementById("search").addEventListener("keypress", function(event) {
         if (event.key === "Enter") { // Check if Enter key is pressed
+            var input = document.getElementById("search");
+            var value = input.value;
+            localStorage.setItem('searchQuery', value);
             window.location.href = "result.html"; // Redirect to results page
         }
     });
     document.getElementById("profile").addEventListener("click", function() {
-    window.location.href = "profile.html"; // Redirect to profile page
+    window.location.href = "profileedit.html"; // Redirect to profile page
     });
 </script>
 
