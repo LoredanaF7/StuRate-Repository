@@ -74,6 +74,19 @@ button .fa-solid{
     cursor: pointer;
 }
 
+.newBtn{
+    color: var(--lightBlue);
+    text-align: left;
+    margin: 0 auto 0;
+    font-size: 30px;
+    width: 80%;
+    height: 20%;
+    background: var(--blue);
+    margin: 40px 20px;
+    padding: 15px 32px;
+    border-radius: 20px;
+}
+
 ::placeholder{
     color: var(--blueGray);
 }
