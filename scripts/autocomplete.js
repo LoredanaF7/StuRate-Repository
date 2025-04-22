@@ -51,7 +51,10 @@ let memberNames = [
 
 const resultsBox = document.querySelector(".result-box");
 const inputBox = document.getElementById("input-box");
+var currentResults = [];
 
+// Search box functionality
+// ////////////////////////////////////////////////////////////////////////
 inputBox.onkeyup = function(){
     let result = [];
     let input = inputBox.value;
@@ -62,6 +65,7 @@ inputBox.onkeyup = function(){
         console.log(result);
     }
     display(result);
+    currentResults = result;
 
     if(!result.length){
         resultsBox.innerHTML = '';
@@ -80,3 +84,33 @@ function selectInput(list){
     inputBox.value = list.innerHTML;
     resultsBox.innerHTML = '';
 }
+// ////////////////////////////////////////////////////////////////////////
+
+
+
+// Student profile buttons functionality
+// ////////////////////////////////////////////////////////////////////////
+function createButtons() {
+    let result = [];
+    let input = localStorage.getItem("searchQuery");
+    if(input.length){
+        result = memberNames.filter((keyword)=>{
+            return keyword.toLowerCase().includes(input.toLowerCase());
+        });
+
+        result.forEach((name) => {
+            let button = document.createElement("button");
+            button.innerText = name;
+            button.className = "newBtn";
+            document.body.appendChild(button);
+            button.onclick = () => window.location.href = "profile.html";
+        });
+
+        console.log("createButtons");
+    }
+}
+
+window.onload = function() {
+    createButtons();
+};
+// ////////////////////////////////////////////////////////////////////////
