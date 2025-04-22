@@ -1,5 +1,4 @@
-import { doc, getDoc } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-firestore.js";
-import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-firestore.js";
+import { getFirestore, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-firestore.js";
 import { getAuth } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-auth.js";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-storage.js";
 
@@ -34,7 +33,7 @@ profileForm.addEventListener('submit', async (e) => {
 
   let resumeURL = "";
 
-  // Upload resume file if one is selected
+/*  // Upload resume file if one is selected
   if (resumeFile) {
     const resumeRef = ref(storage, `resumes/${user.uid}/${resumeFile.name}`);
     try {
@@ -46,7 +45,7 @@ profileForm.addEventListener('submit', async (e) => {
       return;
     }
   }
-
+*/
   // Save profile data to Firestore
   try {
     await setDoc(doc(db, 'users', user.uid), {
