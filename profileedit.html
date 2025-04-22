@@ -11,19 +11,18 @@
     rel="stylesheet"
   />
   <!-- Custom CSS -->
-  <link rel="stylesheet" href="profileedit.css">
+  <link rel="stylesheet" href="css/profileedit.css">
   <!-- Compiled and minified CSS -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
   <link rel="stylesheet" href="css/styles.css">
 </head>
-<body>
 <!-- NAVBAR -->
 <body class="grey lighten-3" style="background: url('https://www.unt.edu/allabout/images/16_854_bustling-campus-behind-eagle-statue-aerial-1001.jpg') center/cover no-repeat fixed;">
 
   <nav class="z-depth-0 grey lighten-4">
     <div class="nav-wrapper container">
       <a href="#" class="brand-logo">
-        <img src="images/untLogo.png" style="width: 45px; margin-top: 10px;">
+        <img src="images/untLogo.png" style="width: 45px; margin-top: -10px;">
       </a>
       <ul id="nav-mobile" class="right hide-on-med-and-down">
           <li class="logged-in" style="display: none;">  <!--hard coded to be hidden until firebase kicks in #11-->
@@ -124,13 +123,13 @@
         <form id="profileForm">
           <!-- First Name -->
           <div class="mb-3">
-            <label for="firstName" class="form-label">First Name</label>
-            <input type="text" class="form-control" id="firstName" name="firstName" placeholder="John" />
+            <label for="classes" class="form-label">First name</label>
+            <textarea class="form-control" id="firstName" name="classes" rows="3" placeholder="e.g."></textarea>
           </div>
-          <!-- Last Name --> 
+          <!-- Last Name -->
           <div class="mb-3">
-            <label for="lastName" class="form-label">Last Name</label>
-            <input type="text" class="form-control" id="lastName" name="lastName" placeholder="Doe" />
+            <label for="classes" class="form-label">Last Name </label>
+            <textarea class="form-control" id="lastName" name="classes" rows="3" placeholder="e.g."></textarea>
           </div>
           <!-- Year in School -->
           <div class="mb-3">
@@ -182,11 +181,21 @@
           </div>
 
           <!-- Save Button -->
-          <button type="submit" class="btn btn-primary">Save Changes</button>
+          <button type="submit" class="btn btn-primary" id="saveChangesBtn">Save Changes</button>
         </form>
       </div>
     </div>
   </div>
+<!--
+  <script>
+    document.getElementById("saveChangesBtn").addEventListener("click", function(event) {
+      event.preventDefault(); // Prevent form submission, if needed
+      
+      // Redirect to profile.html
+      window.location.href = "profile.html";
+    });
+  </script>
+-->
 
   <!-- Bootstrap JS Bundle -->
   <script 
@@ -211,18 +220,21 @@
     const auth = getAuth(app);
     const db = getFirestore(app);
   </script>
-  <script type="module" src="profileedit.js"></script>
   <!-- FIREBASE CONFIG + AUTH SCRIPTS -->
-
+<!--NOT NEEDED I THINK
   <script src="https://www.gstatic.com/firebasejs/11.4.0/firebase-app.js"></script>
   <script src="https://www.gstatic.com/firebasejs/11.4.0/firebase-auth.js"></script>
   <script src="https://www.gstatic.com/firebasejs/11.4.0/firebase-firestore.js"></script>
+-->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-
+<!--  
   <script type="module" src="/scripts/firebaseConfig.js"></script>
+  <script type="module" src="/scripts/firebase-config.js"></script>
+-->
   <script type="module" src="/scripts/auth.js"></script>
   <script type="module" src="/scripts/index.js"></script>
-  <script type="module" src="/scripts/firebase-config.js"></script>
+  <script type="module" src="scripts/profileedit.js"></script>
+
 
 </body>
 </html>
