@@ -6,6 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <!-- Compiled and minified CSS -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <link rel="stylesheet" href="css/styles.css">
   <link rel="stylesheet" href="css/profile.css">
   <title>Student Portfolio</title>
@@ -19,24 +20,27 @@
         <img src="images/untLogo.png" style="width: 45px; margin-top: 10px;">
       </a>
       <ul id="nav-mobile" class="right hide-on-med-and-down">
-          <li class="logged-in" style="display: none;">
-            <a href="#" class="grey-text modal-trigger" data-target="modal-account">Account</a>
-          </li>
-          <li class="logged-in" style="display: none;">
-            <a href="profileedit.html" class="grey-text">Edit Profile</a>
-          </li>
-          <li class="logged-in" style="display: none;">
-            <a href="index.html" class="grey-text">Home</a>
-          </li>
-          <li class="logged-in" style="display: none;">
-            <a href="#" class="grey-text" id="logout">Logout</a>
-          </li>
-          <li class="logged-out" style="display: none;">
-            <a href="#" class="grey-text modal-trigger" data-target="modal-login">Login</a>
-          </li>
-          <li class="logged-out" style="display: none;">
-            <a href="#" class="grey-text modal-trigger" data-target="modal-signup">Sign up</a>
-          </li>
+        <!-- Logged-in User Navbar -->
+        <li class="logged-in" style="display: none;">
+          <a href="#" class="grey-text modal-trigger" data-target="modal-account">Account</a>
+        </li>
+        <li class="logged-in" style="display: none;">
+          <a href="profileedit.html" class="grey-text">Edit Profile</a>
+        </li>
+        <li class="logged-in" style="display: none;">
+          <a href="index.html" class="grey-text">Home</a>
+        </li>
+        <li class="logged-in" style="display: none;">
+          <a href="#" class="grey-text" id="logout">Logout</a>
+        </li>
+
+        <!-- Logged-out User Navbar -->
+        <li class="logged-out" style="display: none;">
+          <a href="#" class="grey-text modal-trigger" data-target="modal-login">Login</a>
+        </li>
+        <li class="logged-out" style="display: none;">
+          <a href="#" class="grey-text modal-trigger" data-target="modal-signup">Sign up</a>
+        </li>
       </ul>
     </div>
   </nav>
@@ -98,25 +102,16 @@
             <div class="row">
               <div class="col s12 m4 center-align">
                 <div class="profile-image-container">
-                  <img id="profile-image" src="images/default-profile.png" class="circle responsive-img" alt="Profile Picture">
+                  <img id="profile-image" src="images/default-profile.png" class="circle responsive-img profile-pic" alt="Profile Picture">
                 </div>
                 <h5 id="user-name">Loading...</h5>
-                <div class="rating-container">
-                  <div class="stars">
-                    <span id="avg-rating">0.0</span>/5.0
-                    <div class="star-icons">
-                      <i class="material-icons">star</i>
-                      <i class="material-icons">star</i>
-                      <i class="material-icons">star</i>
-                      <i class="material-icons">star_border</i>
-                      <i class="material-icons">star_border</i>
-                    </div>
-                  </div>
-                  <p id="rating-count">(0 ratings)</p>
+                <div class="section">
+                  <div class="chip major-chip" id="user-major">Loading...</div>
+                  <div class="chip year-chip" id="user-year">Loading...</div>
                 </div>
               </div>
               <div class="col s12 m8">
-                <h4>Portfolio</h4>
+                <h4>Student Portfolio</h4>
                 <div class="divider"></div>
                 <div class="section">
                   <h5>About Me</h5>
@@ -126,61 +121,38 @@
                 <div class="section">
                   <h5>Skills</h5>
                   <div id="user-skills" class="chips">
-                    <!-- Skills will be dynamically inserted here -->
+                    <!-- Skills will be loaded here -->
                   </div>
                 </div>
                 <div class="divider"></div>
                 <div class="section">
                   <h5>Projects</h5>
                   <ul id="user-projects" class="collection">
-                    <!-- Projects will be dynamically inserted here -->
+                    <!-- Projects will be loaded here -->
+                  </ul>
+                </div>
+                <div class="divider"></div>
+                <div class="section">
+                  <h5>Classes</h5>
+                  <div id="user-classes" class="chips">
+                    <!-- Classes will be loaded here -->
+                  </div>
+                </div>
+                <div class="divider"></div>
+                <div class="section">
+                  <h5>Achievements</h5>
+                  <ul id="user-achievements" class="collection">
+                    <!-- Achievements will be loaded here -->
                   </ul>
                 </div>
                 <div class="divider"></div>
                 <div class="section">
                   <h5>Contact</h5>
                   <p id="user-email">Email: Loading...</p>
+                  <p id="user-linkedin">LinkedIn: Loading...</p>
                 </div>
               </div>
             </div>
-          </div>
-        </div>
-      </div>
-    </div>
-    
-    <!-- REVIEWS SECTION -->
-    <div class="row">
-      <div class="col s12 m10 offset-m1">
-        <div class="card">
-          <div class="card-content">
-            <span class="card-title">Reviews</span>
-            <div class="divider"></div>
-            <div id="reviews-container">
-              <!-- Reviews will be dynamically loaded here -->
-              <p class="center-align" id="no-reviews-message">No reviews yet.</p>
-            </div>
-          </div>
-          <div class="card-action review-form-container">
-            <h5>Leave a Review</h5>
-            <form id="review-form" class="logged-in" style="display: none;">
-              <div class="rating-input">
-                <p>Your Rating:</p>
-                <div class="star-rating">
-                  <i class="material-icons rating-star" data-rating="1">star_border</i>
-                  <i class="material-icons rating-star" data-rating="2">star_border</i>
-                  <i class="material-icons rating-star" data-rating="3">star_border</i>
-                  <i class="material-icons rating-star" data-rating="4">star_border</i>
-                  <i class="material-icons rating-star" data-rating="5">star_border</i>
-                </div>
-                <input type="hidden" id="rating-value" value="0">
-              </div>
-              <div class="input-field">
-                <textarea id="review-text" class="materialize-textarea" required></textarea>
-                <label for="review-text">Write your review</label>
-              </div>
-              <button class="btn yellow darken-2 z-depth-0" type="submit">Submit Review</button>
-            </form>
-            <p class="logged-out center-align" style="display: none;">Please log in to leave a review.</p>
           </div>
         </div>
       </div>

@@ -1,124 +1,128 @@
-/* Profile Styles */
-.profile-image-container {
-  margin: 20px auto;
+/* I called each section a chip becasue that's how materialze did it lol. Trying to keeo things form the template*/
+.profile-pic {
   width: 150px;
   height: 150px;
-  overflow: hidden;
-  border-radius: 50%;
-  border: 3px solid #4caf50;
-}
-
-.profile-image-container img {
-  width: 100%;
-  height: 100%;
   object-fit: cover;
+  border: 4px solid #288cff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.rating-container {
-  margin: 15px 0;
-}
-
-.stars {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  font-size: 18px;
-  margin-bottom: 5px;
-}
-
-.star-icons {
-  margin-top: 5px;
-}
-
-.star-icons i {
-  color: #ffd700;
-}
-
-.chips {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 5px;
-}
-
-.chips .chip {
-  background-color: #e0f2f1;
-}
-
-/* Review Styles */
-.review-item {
-  padding: 15px 0;
-}
-
-.review-header {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  margin-bottom: 10px;
-}
-
-.review-stars {
-  color: #ffd700;
-}
-
-.review-author {
-  font-weight: bold;
-}
-
-.review-date {
-  color: #9e9e9e;
-  font-size: 0.9em;
-  margin-left: auto;
-}
-
-.review-content {
-  margin-bottom: 15px;
-  white-space: pre-line;
-}
-
-.rating-input {
+.profile-image-container {
   margin-bottom: 20px;
 }
 
-.star-rating {
-  display: flex;
-  gap: 5px;
-  cursor: pointer;
+.card {
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
-.star-rating i {
-  color: #ffd700;
-  transition: all 0.2s ease;
+.card .card-content {
+  padding: 30px;
 }
 
-.star-rating i:hover {
-  transform: scale(1.2);
+.chips .chip {
+  margin: 5px;
+  background-color: #f5f5f5;
+  font-weight: 500;
 }
 
-hr {
-  border: 0;
-  height: 1px;
-  background-color: #e0e0e0;
+.major-chip {
+  background-color: #e3f2fd !important;
+  color: #0d47a1;
+}
+
+.year-chip {
+  background-color: #e8f5e9 !important;
+  color: #78b2ec;
+}
+
+
+.collection {
+  border: none;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.collection .collection-item {
+  border-bottom: 1px solid #f5f5f5;
+  padding: 15px;
+  transition: background-color 0.2s ease;
+}
+
+.collection .collection-item:hover {
+  background-color: #fafafa;
+}
+
+.section {
+  margin-bottom: 20px;
+}
+
+.section h5 {
+  color: #001d67;
+  margin-bottom: 15px;
+  font-weight: 500;
+}
+
+.divider {
+  margin: 20px 0;
+}
+
+.section p {
   margin: 10px 0;
 }
 
-/* Project Styles */
-.project-title {
-  font-weight: bold;
-  margin-bottom: 5px;
+a {
+  color: #006747;
+  transition: color 0.2s ease;
 }
 
-.collection-item p {
-  margin: 5px 0;
+a:hover {
+  color: #00b383;
+  text-decoration: underline;
 }
 
+/* Materialize stuf!!!!!!!*/
 @media (max-width: 600px) {
-  .review-header {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 5px;
+  .profile-pic {
+    width: 120px;
+    height: 120px;
   }
   
-  .review-date {
-    margin-left: 0;
+  .card .card-content {
+    padding: 20px;
   }
+}
+
+/* Page animation */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.card {
+  animation: fadeIn 1s ease-in-out;
+}
+
+/* Skills chips styling */
+#user-skills .chip {
+  background-color: #e6f4ff;
+  color: #0277bd;
+}
+
+/* Project items styling */
+#user-projects .collection-item {
+  background-color: #f9f9f9;
+  border-left: 3px solid #006747;
+}
+
+/* Achievements styling */
+#user-achievements .collection-item {
+  background-color: #fff8e1;
+  border-left: 3px solid #378cd1;
+}
+
+/* Classes chips styling */
+#user-classes .chip {
+  background-color: #f1f8e9;
+  color: #558b2f;
 }

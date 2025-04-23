@@ -4,13 +4,13 @@ import { getFirestore, doc, getDoc, setDoc } from "https://www.gstatic.com/fireb
 import { getAuth } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-auth.js";
 import { getStorage } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-storage.js";
 
-// Firebase config
+// Firebase config (again) put this twice so that the data actually uploaded :)
 const firebaseConfig = {
   apiKey: "AIzaSyAWjQkonlOhM_fG0cSyZlS0tG-Y_Kgb83c",
   authDomain: "project-2931375610829185289.firebaseapp.com",
   databaseURL: "https://project-2931375610829185289-default-rtdb.firebaseio.com",
   projectId: "project-2931375610829185289",
-  storageBucket: "project-2931375610829185289.firebasestorage.app"
+  storageBucket: "project-2931375610829185289.firebasestorage.app",
 };
 
 // Initialize Firebase app
@@ -23,7 +23,6 @@ const storage = getStorage(app);
 
 const profileForm = document.querySelector('#profileForm');
 
-// Check if user is logged in
 auth.onAuthStateChanged(async (user) => {
   if (user) {
     try {

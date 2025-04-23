@@ -1,388 +1,315 @@
-import { 
-    getDoc, 
-    doc, 
-    collection, 
-    query, 
-    where, 
-    getDocs, 
-    addDoc, 
-    serverTimestamp,
-    updateDoc,
-    arrayUnion,
-    onSnapshot
-  } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-firestore.js";
-  import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-auth.js";
-  
-  // Initialize materialize components
-  document.addEventListener('DOMContentLoaded', function() {
-    const modals = document.querySelectorAll('.modal');
-    M.Modal.init(modals);
+// Import Firebase modules
+auth.onAuthStateChanged(async (user) => {
+  if (user) {
+    document.querySelectorAll('.logged-in').forEach(item => item.style.display = 'block');
+    document.querySelectorAll('.logged-out').forEach(item => item.style.display = 'none');
     
-    const materialboxed = document.querySelectorAll('.materialboxed');
-    M.Materialbox.init(materialboxed);
-    
-    // Initialize star rating functionality
-    initializeRatingStars();
-  });
-  
-  // Get the current profile ID from URL or use current user
-  let profileUserId;
-  const urlParams = new URLSearchParams(window.location.search);
-  profileUserId = urlParams.get('id');
-  
-  // Listen for auth status changes
-  onAuthStateChanged(auth, async (user) => {
-    if (user) {
-      // If no profileUserId is specified in URL, show current user's profile
-      if (!profileUserId) {
-        profileUserId = user.uid;
-      }
-      
-      // Show logged-in UI elements
-      const loggedInElements = document.querySelectorAll('.logged-in');
-      const loggedOutElements = document.querySelectorAll('.logged-out');
-      
-      loggedInElements.forEach(item => item.style.display = 'block');
-      loggedOutElements.forEach(item => item.style.display = 'none');
-      
-      // If viewing own profile, show edit options
-      if (profileUserId === user.uid) {
-        // Additional UI adjustments for own profile if needed
-      }
-      
-      // Load profile data
-      loadProfileData(profileUserId);
-      
-      // Load reviews for this profile
-      loadReviews(profileUserId);
+    // If no specific user ID was provided in URL, show current user's profile
+    if (!currentProfileId) {
+      currentProfileId = user.uid;
+      isOwnProfile = true;
     } else {
-      // User is logged out
-      const loggedInElements = document.querySelectorAll('.logged-in');
-      const loggedOutElements = document.querySelectorAll('.logged-out');
-      
-      loggedInElements.forEach(item => item.style.display = 'none');
-      loggedOutElements.forEach(item => item.style.display = 'block');
-      
-      // If no user is specified in URL, redirect to home
-      if (!profileUserId) {
-        window.location.href = 'index.html';
-      } else {
-        // If viewing someone else's profile while logged out
-        loadProfileData(profileUserId);
-        loadReviews(profileUserId);
-      }
+      // Check if the profile belongs to the current user
+      isOwnProfile = currentProfileId === user.uid;
     }
-  });
-  
-  // Load profile data from Firebase
-  async function loadProfileData(userId) {
-    try {
-      const userDocRef = doc(db, "users", userId);
-      const userDoc = await getDoc(userDocRef);
+    
+    await loadProfileData(currentProfileId);
+    
+    // NEED TO MOVE this to firebase right?
+    if (isOwnProfile) {
+      userEmailElement.textContent = `Email: ${user.email}`;
+    }
+  } else {
+    // User is not signed in
+    document.querySelectorAll('.logged-in').forEach(item => item.style.display = 'none');
+    document.querySelectorAll('.logged-out').forEach(item => item.style.display = 'block');
+    
+  }
+});
+
+//SET EACH VALUE TO THE HTML ELEMENTS
+async function loadProfileData(userId) {
+  try {
+    const userDocRef = doc(db, 'users', userId);
+    const userDoc = await getDoc(userDocRef);
+    
+    if (userDoc.exists()) {
+      const userData = userDoc.data();
       
-      if (userDoc.exists()) {
-        const userData = userDoc.data();
-        
-        // Update profile elements with user data
-        document.getElementById('user-name').textContent = userData.name || userData.email || 'Anonymous User';
-        
-        if (userData.bio) {
-          document.getElementById('user-bio').textContent = userData.bio;
-        }
-        
-        if (userData.email) {
-          document.getElementById('user-email').textContent = `Email: ${userData.email}`;
-        }
-        
-        // Handle profile image
-        if (userData.profileImageUrl) {
-          document.getElementById('profile-image').src = userData.profileImageUrl;
-        }
-        
-        // Handle skills
-        if (userData.skills && userData.skills.length > 0) {
-          const skillsContainer = document.getElementById('user-skills');
-          skillsContainer.innerHTML = '';
-          
-          userData.skills.forEach(skill => {
-            const chip = document.createElement('div');
-            chip.className = 'chip';
-            chip.textContent = skill;
-            skillsContainer.appendChild(chip);
-          });
-        }
-        
-        // Handle projects
-        if (userData.projects && userData.projects.length > 0) {
-          const projectsContainer = document.getElementById('user-projects');
-          projectsContainer.innerHTML = '';
-          
-          userData.projects.forEach(project => {
-            const projectItem = document.createElement('li');
-            projectItem.className = 'collection-item';
-            
-            const projectTitle = document.createElement('div');
-            projectTitle.className = 'project-title';
-            projectTitle.textContent = project.title;
-            
-            const projectDesc = document.createElement('p');
-            projectDesc.textContent = project.description;
-            
-            projectItem.appendChild(projectTitle);
-            projectItem.appendChild(projectDesc);
-            
-            if (project.link) {
-              const projectLink = document.createElement('a');
-              projectLink.href = project.link;
-              projectLink.className = 'secondary-content';
-              projectLink.target = '_blank';
-              projectLink.innerHTML = '<i class="material-icons">link</i>';
-              projectItem.appendChild(projectLink);
-            }
-            
-            projectsContainer.appendChild(projectItem);
-          });
-        } else {
-          document.getElementById('user-projects').innerHTML = '<li class="collection-item">No projects added yet.</li>';
-        }
-        
-        // Handle ratings
-        if (userData.ratings) {
-          const ratings = userData.ratings;
-          const avgRating = ratings.average || 0;
-          const ratingCount = ratings.count || 0;
-          
-          document.getElementById('avg-rating').textContent = avgRating.toFixed(1);
-          document.getElementById('rating-count').textContent = `(${ratingCount} ratings)`;
-          
-          // Update star display
-          updateStarDisplay(avgRating);
-        }
+    
+      if (userData.firstName || userData.lastName) {
+        userNameElement.textContent = `${userData.firstName || ''} ${userData.lastName || ''}`;
       } else {
-        console.log("No such user document!");
-        document.getElementById('user-name').textContent = 'User Not Found';
+        userNameElement.textContent = 'User';
       }
-    } catch (error) {
-      console.error("Error loading profile data:", error);
+      
+      if (userData.bio) {
+        userBioElement.textContent = userData.bio;
+      } else {
+        userBioElement.textContent = 'No bio information available.';
+      }
+      
+      if (userData.major || userData.year) {
+        displayEducationInfo(userData.major, userData.year);
+      }
+      
+      if (userData.skills) {
+        displaySkills(userData.skills);
+      }
+      
+      if (userData.projects) {
+        displayProjects(userData.projects);
+      }
+      
+      if (userData.classes) {
+        displayClasses(userData.classes);
+      }
+      
+      if (userData.achievements) {
+        displayAchievements(userData.achievements);
+      }
+      
+      if (userData.linkedin) {
+        displayLinkedIn(userData.linkedin);
+      }
+    } else {
+      console.log('No profile data found for this user.');
+      userNameElement.textContent = 'User Not Found';
+      userBioElement.textContent = 'Profile information not available.';
+    }
+  } 
+  catch (error) {
+    console.error('Error loading profile data:', error);
+    userNameElement.textContent = 'Error Loading Profile';
+    userBioElement.textContent = 'There was an error loading the profile information.';
+  }
+}
+
+// Display education info (major and year)
+function displayEducationInfo(major, year) {
+  if (userMajorElement && userYearElement) {
+    userMajorElement.textContent = major || 'Not specified';
+    userYearElement.textContent = year || 'Not specified';
+  } else {
+    // If elements don't exist in HTML, create them
+    const educationSection = document.createElement('div');
+    educationSection.className = 'section';
+    educationSection.innerHTML = `
+      <h5>Education</h5>
+      <p><strong>Major:</strong> ${major || 'Not specified'}</p>
+      <p><strong>Year:</strong> ${year || 'Not specified'}</p>
+    `;
+    
+    // Find where to insert this section
+    const bioSection = userBioElement.closest('.section');
+    if (bioSection) {
+      const divider = document.createElement('div');
+      divider.className = 'divider';
+      bioSection.parentNode.insertBefore(divider, bioSection.nextSibling);
+      bioSection.parentNode.insertBefore(educationSection, divider.nextSibling);
     }
   }
-  
-  // Load reviews for the profile
-  async function loadReviews(userId) {
-    try {
-      const reviewsRef = collection(db, "reviews");
-      const q = query(reviewsRef, where("profileId", "==", userId));
+}
+
+function displaySkills(skillsData) {
+  if (userSkillsElement) {
+    userSkillsElement.innerHTML = '';
+    
+    if (skillsData.trim() !== '') {
+      const skills = skillsData.split(',').map(skill => skill.trim());
       
-      // Set up a real-time listener for reviews
-      onSnapshot(q, (querySnapshot) => {
-        const reviewsContainer = document.getElementById('reviews-container');
-        const noReviewsMessage = document.getElementById('no-reviews-message');
-        
-        if (querySnapshot.empty) {
-          reviewsContainer.innerHTML = '';
-          noReviewsMessage.style.display = 'block';
-          return;
+      skills.forEach(skill => {
+        if (skill) {
+          const chip = document.createElement('div');
+          chip.className = 'chip';
+          chip.textContent = skill;
+          userSkillsElement.appendChild(chip);
         }
-        
-        noReviewsMessage.style.display = 'none';
-        reviewsContainer.innerHTML = '';
-        
-        querySnapshot.forEach((doc) => {
-          const review = doc.data();
-          const reviewElement = createReviewElement(review);
-          reviewsContainer.appendChild(reviewElement);
-        });
       });
-      
-    } catch (error) {
-      console.error("Error loading reviews:", error);
-    }
-  }
-  
-  // Create a review element
-  function createReviewElement(review) {
-    const reviewDiv = document.createElement('div');
-    reviewDiv.className = 'review-item';
-    
-    const reviewHeader = document.createElement('div');
-    reviewHeader.className = 'review-header';
-    
-    const reviewStars = document.createElement('div');
-    reviewStars.className = 'review-stars';
-    
-    for (let i = 1; i <= 5; i++) {
-      const star = document.createElement('i');
-      star.className = 'material-icons';
-      star.textContent = i <= review.rating ? 'star' : 'star_border';
-      reviewStars.appendChild(star);
-    }
-    
-    const reviewAuthor = document.createElement('span');
-    reviewAuthor.className = 'review-author';
-    reviewAuthor.textContent = review.authorName || 'Anonymous';
-    
-    const reviewDate = document.createElement('span');
-    reviewDate.className = 'review-date';
-    
-    if (review.timestamp) {
-      const date = review.timestamp.toDate ? review.timestamp.toDate() : new Date(review.timestamp);
-      reviewDate.textContent = date.toLocaleDateString();
     } else {
-      reviewDate.textContent = 'Recently';
+      userSkillsElement.textContent = 'No skills listed.';
     }
+  }
+}
+
+function displayProjects(projectsData) {
+  if (userProjectsElement) {
+    userProjectsElement.innerHTML = '';
     
-    reviewHeader.appendChild(reviewStars);
-    reviewHeader.appendChild(reviewAuthor);
-    reviewHeader.appendChild(reviewDate);
+    if (projectsData.trim() !== '') {
+      const projects = projectsData.split('\n').filter(p => p.trim() !== '');
+      
+      if (projects.length > 0) {
+        projects.forEach(project => {
+          const li = document.createElement('li');
+          li.className = 'collection-item';
+          li.textContent = project;
+          userProjectsElement.appendChild(li);
+        });
+      } else {
+        const li = document.createElement('li');
+        li.className = 'collection-item';
+        li.textContent = 'No projects listed.';
+        userProjectsElement.appendChild(li);
+      }
+    } else {
+      const li = document.createElement('li');
+      li.className = 'collection-item';
+      li.textContent = 'No projects listed.';
+      userProjectsElement.appendChild(li);
+    }
+  }
+}
+
+function displayClasses(classesData) {
+  let classesSection = document.getElementById('classes-section');
+  
+  if (!classesSection) {
+    classesSection = document.createElement('div');
+    classesSection.id = 'classes-section';
+    classesSection.className = 'section';
     
-    const reviewContent = document.createElement('div');
-    reviewContent.className = 'review-content';
-    reviewContent.textContent = review.text;
+    const h5 = document.createElement('h5');
+    h5.textContent = 'Classes';
+    classesSection.appendChild(h5);
     
-    reviewDiv.appendChild(reviewHeader);
-    reviewDiv.appendChild(reviewContent);
-    reviewDiv.appendChild(document.createElement('hr'));
+    const classesList = document.createElement('div');
+    classesList.id = 'user-classes';
+    classesSection.appendChild(classesList);
     
-    return reviewDiv;
+    const projectsSection = userProjectsElement.closest('.section');
+    if (projectsSection) {
+      const divider = document.createElement('div');
+      divider.className = 'divider';
+      projectsSection.parentNode.insertBefore(divider, projectsSection.nextSibling);
+      projectsSection.parentNode.insertBefore(classesSection, divider.nextSibling);
+    }
   }
   
-  // Update star display based on rating
-  function updateStarDisplay(rating) {
-    const starIcons = document.querySelectorAll('.star-icons i.material-icons');
+  const classesList = document.getElementById('user-classes');
+  classesList.innerHTML = '';
+  
+  if (classesData && classesData.trim() !== '') {
+    const classes = classesData.split(',').map(cls => cls.trim());
     
-    starIcons.forEach((star, index) => {
-      if (index < Math.floor(rating)) {
-        star.textContent = 'star';
-      } else if (index < rating) {
-        star.textContent = 'star_half';
-      } else {
-        star.textContent = 'star_border';
+    classes.forEach(cls => {
+      if (cls) {
+        const chip = document.createElement('div');
+        chip.className = 'chip';
+        chip.textContent = cls;
+        classesList.appendChild(chip);
       }
     });
+  } else {
+    classesList.textContent = 'No classes listed.';
   }
+}
+
+function displayAchievements(achievementsData) {
+  let achievementsSection = document.getElementById('achievements-section');
   
-  // Initialize rating stars for review form
-  function initializeRatingStars() {
-    const ratingStars = document.querySelectorAll('.rating-star');
-    const ratingInput = document.getElementById('rating-value');
+  if (!achievementsSection) {
+    achievementsSection = document.createElement('div');
+    achievementsSection.id = 'achievements-section';
+    achievementsSection.className = 'section';
     
-    ratingStars.forEach(star => {
-      star.addEventListener('click', (e) => {
-        const rating = parseInt(e.target.getAttribute('data-rating'));
-        ratingInput.value = rating;
-        
-        // Update stars display
-        ratingStars.forEach((s, index) => {
-          s.textContent = index < rating ? 'star' : 'star_border';
-        });
-      });
-      
-      // Hover effects
-      star.addEventListener('mouseenter', (e) => {
-        const rating = parseInt(e.target.getAttribute('data-rating'));
-        
-        ratingStars.forEach((s, index) => {
-          if (index < rating) {
-            s.textContent = 'star';
-          }
-        });
-      });
-      
-      star.addEventListener('mouseleave', (e) => {
-        const currentRating = parseInt(ratingInput.value);
-        
-        ratingStars.forEach((s, index) => {
-          s.textContent = index < currentRating ? 'star' : 'star_border';
-        });
-      });
-    });
+    const h5 = document.createElement('h5');
+    h5.textContent = 'Achievements';
+    achievementsSection.appendChild(h5);
     
-    // Set up review form submission
-    const reviewForm = document.getElementById('review-form');
-    if (reviewForm) {
-      reviewForm.addEventListener('submit', submitReview);
+    const achievementsList = document.createElement('ul');
+    achievementsList.id = 'user-achievements';
+    achievementsList.className = 'collection';
+    achievementsSection.appendChild(achievementsList);
+    
+    const contactSection = userEmailElement.closest('.section');
+    if (contactSection) {
+      const divider = document.createElement('div');
+      divider.className = 'divider';
+      contactSection.parentNode.insertBefore(divider, contactSection);
+      contactSection.parentNode.insertBefore(achievementsSection, divider);
     }
   }
   
-  // Submit a review
-  async function submitReview(e) {
-    e.preventDefault();
+  const achievementsList = document.getElementById('user-achievements');
+  achievementsList.innerHTML = '';
+  
+  if (achievementsData && achievementsData.trim() !== '') {
+    const achievements = achievementsData.split('\n').filter(a => a.trim() !== '');
     
-    const rating = parseInt(document.getElementById('rating-value').value);
-    const text = document.getElementById('review-text').value;
+    if (achievements.length > 0) {
+      achievements.forEach(achievement => {
+        const li = document.createElement('li');
+        li.className = 'collection-item';
+        li.textContent = achievement;
+        achievementsList.appendChild(li);
+      });
+    } else {
+      const li = document.createElement('li');
+      li.className = 'collection-item';
+      li.textContent = 'No achievements listed.';
+      achievementsList.appendChild(li);
+    }
+  } else {
+    const li = document.createElement('li');
+    li.className = 'collection-item';
+    li.textContent = 'No achievements listed.';
+    achievementsList.appendChild(li);
+  }
+}
+
+function displayLinkedIn(linkedinUrl) {
+  const contactSection = userEmailElement.closest('.section');
+  
+  if (contactSection) {
+    let linkedinElement = document.getElementById('user-linkedin');
     
-    if (rating === 0) {
-      M.toast({html: 'Please select a rating', classes: 'red'});
-      return;
+    if (!linkedinElement) {
+      linkedinElement = document.createElement('p');
+      linkedinElement.id = 'user-linkedin';
+      contactSection.appendChild(linkedinElement);
     }
     
-    if (!text.trim()) {
-      M.toast({html: 'Please write a review', classes: 'red'});
-      return;
-    }
-    
-    try {
-      const user = auth.currentUser;
-      
-      if (!user) {
-        M.toast({html: 'You must be logged in to leave a review', classes: 'red'});
-        return;
+    if (linkedinUrl.trim() !== '') {
+
+      let formattedUrl = linkedinUrl;
+      if (!linkedinUrl.startsWith('http://') && !linkedinUrl.startsWith('https://')) {
+        formattedUrl = 'https://' + linkedinUrl;
       }
       
-      // Don't allow users to review their own profile
-      if (user.uid === profileUserId) {
-        M.toast({html: 'You cannot review your own profile', classes: 'red'});
-        return;
-      }
-      
-      const userDoc = await getDoc(doc(db, "users", user.uid));
-      const userData = userDoc.exists() ? userDoc.data() : {};
-      
-      const reviewData = {
-        authorId: user.uid,
-        authorName: userData.name || user.email,
-        profileId: profileUserId,
-        rating: rating,
-        text: text,
-        timestamp: serverTimestamp()
-      };
-      
-      // Add review to "reviews" collection
-      await addDoc(collection(db, "reviews"), reviewData);
-      
-      // Update profile's average rating
-      const profileRef = doc(db, "users", profileUserId);
-      const profileDoc = await getDoc(profileRef);
-      const profileData = profileDoc.data();
-      
-      const currentRatings = profileData.ratings || { count: 0, total: 0, average: 0 };
-      const newCount = currentRatings.count + 1;
-      const newTotal = currentRatings.total + rating;
-      const newAverage = newTotal / newCount;
-      
-      await updateDoc(profileRef, {
-        "ratings.count": newCount,
-        "ratings.total": newTotal,
-        "ratings.average": newAverage
-      });
-      
-      // Reset form
-      document.getElementById('rating-value').value = "0";
-      document.getElementById('review-text').value = "";
-      
-      // Reset star display
-      const ratingStars = document.querySelectorAll('.rating-star');
-      ratingStars.forEach(star => {
-        star.textContent = 'star_border';
-      });
-      
-      M.toast({html: 'Review submitted successfully', classes: 'green'});
-      
-      // Materialize will rerender the textarea
-      M.textareaAutoResize(document.getElementById('review-text'));
-      
-    } catch (error) {
-      console.error("Error submitting review:", error);
-      M.toast({html: 'Error submitting review', classes: 'red'});
+      linkedinElement.innerHTML = `LinkedIn: <a href="${formattedUrl}" target="_blank">${linkedinUrl}</a>`;
+    } else {
+      linkedinElement.textContent = 'LinkedIn: Not provided';
     }
   }
+}
+
+// Setup Materialize components
+document.addEventListener('DOMContentLoaded', function() {
+  var modals = document.querySelectorAll('.modal');
+  M.Modal.init(modals);
+
+  var items = document.querySelectorAll('.collapsible');
+  M.Collapsible.init(items);
+});
+
+// Import Firebase modules
+import { doc, getDoc } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-firestore.js";
+
+
+const userNameElement = document.getElementById('user-name');
+const userBioElement = document.getElementById('user-bio');
+const userSkillsElement = document.getElementById('user-skills');
+const userProjectsElement = document.getElementById('user-projects');
+const userEmailElement = document.getElementById('user-email');
+const userMajorElement = document.getElementById('user-major');
+const userYearElement = document.getElementById('user-year');
+const userClassesElement = document.getElementById('user-classes');
+const userAchievementsElement = document.getElementById('user-achievements');
+const userLinkedInElement = document.getElementById('user-linkedin');
+
+// This part is to make sure that a profile can be accessed form the search page Don't know how it even works tbh. I googled it
+const params = new URLSearchParams(window.location.search);
+const urlUserId = params.get('uid');
+let currentProfileId = urlUserId;
+let isOwnProfile = false;
