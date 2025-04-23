@@ -1,69 +1,110 @@
-import { getFirestore, doc, setDoc } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-firestore.js";
+// Import Firebase modules
+import { initializeApp } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-app.js";
+import { getFirestore, doc, getDoc, setDoc } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-firestore.js"; // Import setDoc
 import { getAuth } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-auth.js";
-import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-storage.js";
+import { getStorage } from "https://www.gstatic.com/firebasejs/11.4.0/firebase-storage.js";
+
+// Firebase config (again) put this twice so that the data actually uploaded :)
+const firebaseConfig = {
+  apiKey: "AIzaSyAWjQkonlOhM_fG0cSyZlS0tG-Y_Kgb83c",
+  authDomain: "project-2931375610829185289.firebaseapp.com",
+  databaseURL: "https://project-2931375610829185289-default-rtdb.firebaseio.com",
+  projectId: "project-2931375610829185289",
+  storageBucket: "project-2931375610829185289.firebasestorage.app",
+};
+
+// Initialize Firebase app
+const app = initializeApp(firebaseConfig);
 
 // Initialize Firebase services
-const db = getFirestore();
-const auth = getAuth();
-const storage = getStorage();
+const db = getFirestore(app);
+const auth = getAuth(app);
+const storage = getStorage(app);
 
 const profileForm = document.querySelector('#profileForm');
 
+auth.onAuthStateChanged(async (user) => {
+  if (user) {
+    try {
+      const userDocRef = doc(db, 'users', user.uid);
+      const userDoc = await getDoc(userDocRef);
+      
+      if (userDoc.exists()) {
+        const userData = userDoc.data();
+        profileForm['firstName'].value = userData.firstName || '';
+        profileForm['lastName'].value = userData.lastName || '';
+        profileForm['bio'].value = userData.bio || '';
+        profileForm['major'].value = userData.major || '';
+        profileForm['year'].value = userData.year || '';
+        profileForm['classes'].value = userData.classes || '';
+        profileForm['projects'].value = userData.projects || '';
+        profileForm['skills'].value = userData.skills || '';
+        profileForm['achievements'].value = userData.achievements || '';
+        profileForm['linkedin'].value = userData.linkedin || '';
+        
+        if (userData.resumeURL) {
+          console.log('Resume URL:', userData.resumeURL);
+        }
+      } else {
+        console.log('No user data found');
+      }
+    } catch (err) {
+      console.error('Error fetching user data:', err);
+    }
+  } else {
+    console.log('User is not signed in.');
+    alert('Please log in to edit your profile.');
+    window.location.href = 'index.html';
+  }
+});
+
+// Save profile data
 profileForm.addEventListener('submit', async (e) => {
   e.preventDefault();
 
-  // Get form values
-  const firstName = profileForm['firstName'].value;
-  const lastName = profileForm['lastName'].value;
-  const year = profileForm['year'].value;
-  const classes = profileForm['classes'].value;
-  const projects = profileForm['projects'].value;
-  const skills = profileForm['skills'].value;
-  const achievements = profileForm['achievements']?.value || "";
-  const linkedin = profileForm['linkedin']?.value || "";
-  const resumeFile = profileForm['resume']?.files[0];
+  const firstName = profileForm['firstName'].value || '';
+  const lastName = profileForm['lastName'].value || '';
+  const bio = profileForm['bio'].value || '';
+  const major = profileForm['major'].value || '';
+  const year = profileForm['year'].value || '';
+  const classes = profileForm['classes'].value || '';
+  const projects = profileForm['projects'].value || '';
+  const skills = profileForm['skills'].value || '';
+  const achievements = profileForm['achievements']?.value || '';
+  const linkedin = profileForm['linkedin']?.value || '';
+  const resumeURL = profileForm['resume']?.files[0] || null;  // Handle resume file
 
   const user = auth.currentUser;
 
+  // Check if user is logged in
   if (!user) {
-    console.log('User not authenticated.');
     alert('Please log in to update your profile.');
     return;
   }
 
-  let resumeURL = "";
+  await setDoc(doc(db, 'users', user.uid), {
+    firstName,
+    lastName,
+    bio,
+    year,
+    major,
+    classes,
+    projects,
+    skills,
+    achievements,
+    linkedin,
+    resumeURL
+  }, { merge: true });
 
-  // Upload resume file if one is selected
-  if (resumeFile) {
-    const resumeRef = ref(storage, `resumes/${user.uid}/${resumeFile.name}`);
-    try {
-      await uploadBytes(resumeRef, resumeFile);
-      resumeURL = await getDownloadURL(resumeRef);
-    } catch (err) {
-      console.error("Resume upload failed:", err);
-      alert("There was a problem uploading your resume.");
-      return;
-    }
-  }
+  alert('Profile updated successfully!');
+  window.location.href = "profile.html"; 
+});
 
-  // Save profile data to Firestore
-  try {
-    await setDoc(doc(db, 'users', user.uid), {
-      firstName,
-      lastName,
-      year,
-      classes,
-      projects,
-      skills,
-      achievements,
-      linkedin,
-      resumeURL
-    }, { merge: true });
+// Setup Materialize components
+document.addEventListener('DOMContentLoaded', function() {
+  var modals = document.querySelectorAll('.modal');
+  M.Modal.init(modals);
 
-    alert('Profile updated successfully!');
-    window.location.href = "search.html"; // change to search page
-  } catch (err) {
-    console.error('Error updating profile: ', err);
-    alert('Something went wrong saving your profile.');
-  }
+  var items = document.querySelectorAll('.collapsible');
+  M.Collapsible.init(items);
 });

@@ -12,7 +12,6 @@
   </style>
 </head>
 <body class="grey lighten-3">
-
   <!-- NAVBAR -->
   <body class="grey lighten-3" style="background: url('https://www.unt.edu/allabout/images/16_854_bustling-campus-behind-eagle-statue-aerial-1001.jpg') center/cover no-repeat fixed;">
 
@@ -58,10 +57,6 @@
         <div class="input-field">
           <input type="password" id="signup-password" required />
           <label for="signup-password">Choose password</label>
-        </div>
-        <div class="input-field">                         <!--this div adds a bio field in the sign up tabe of the-->
-          <input type="text" id="signup-bio" required />
-          <label for="signup-bio">One Line Bio</label>
         </div>
         <button class="btn yellow darken-2 z-depth-0">Sign up</button>
       </form>
@@ -130,6 +125,9 @@
   <script>
     document.getElementById("search").addEventListener("keypress", function(event) {
         if (event.key === "Enter") { // Check if Enter key is pressed
+            var input = document.getElementById("search");
+            var value = input.value;
+            localStorage.setItem('searchQuery', value);
             window.location.href = "result.html"; // Redirect to results page
         }
     });

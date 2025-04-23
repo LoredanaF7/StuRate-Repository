@@ -1837,3 +1837,8 @@
   .u-section-6 .u-text-8 {
     border-color: transparent !important;
   }
+
+#major {
+  min-height: 75px;
+  padding: 8px 12px;
+}

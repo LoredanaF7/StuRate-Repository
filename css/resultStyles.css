@@ -1,0 +1,115 @@
+:root{
+    --lightBlue: #e4f2ff; /* Search bar color */
+    --blue: #8dc5fe;      /* Hover color */
+    --darkGray: #213140;  /* Background color */
+    --blueGray: #34495e;  /* Text color */
+    --navGray: #eeeeee;   /* Navigation bar color */
+}
+
+*{
+    margin: 0;
+    padding: 0;
+    font-family: 'Poppins', sans-serif;
+    box-sizing: border-box;
+}
+
+h1{
+    color: var(--darkGray);
+    text-align: left;
+    margin: 70px 70px 0;
+    font-size: 50px;
+    /* background: var(--blueGray); */
+}
+
+h2{
+    color: var(--lightBlue);
+    text-align: left;
+    margin: 0 auto 0;
+    font-size: 30px;
+}
+
+body{
+    background: var(--darkGray);
+    color: var(--blueGray);
+}
+
+.search-box{
+    position: relative;
+    width: 400px; /* old: 600px */
+    height: 64px; /* old: auto */
+    background: var(--lightBlue);
+    margin: 0 auto;
+    padding: 0;
+    border-radius: 20px 20px 0 0; /* old: 20px */
+}
+
+.row{
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+}
+
+input{
+    flex: 1;
+    height: 100%;
+    background: transparent;
+    border: 0;
+    outline: 0;
+    font-size: 18px;
+    color: var(--blueGray);
+    padding: 0;
+}
+
+button{
+    height: 100%;
+    background: transparent;
+    border: 0;
+    outline: 0;
+}
+
+button .fa-solid{
+    width: 25px;
+    color: var(--blueGray);
+    font-size: 22px;
+    cursor: pointer;
+}
+
+.newBtn{
+    color: var(--lightBlue);
+    text-align: left;
+    margin: 0 auto 0;
+    font-size: 30px;
+    width: 80%;
+    height: 20%;
+    background: var(--blue);
+    margin: 40px 20px;
+    padding: 15px 32px;
+    border-radius: 20px;
+}
+
+::placeholder{
+    color: var(--blueGray);
+}
+
+.result-box ul li {
+    list-style: none;
+    padding: 0 16px;
+    cursor: pointer;
+    width: 100%;
+    box-sizing: border-box;
+    font-size: 16px;
+    color: var(--blueGray);
+}
+
+.result-box ul li:hover{
+    background: var(--blue);
+}
+
+.result-box{
+    margin: 0 auto;
+    padding: 0;
+    width: 400px;
+    max-height: 200px; /* old: 300px */
+    overflow-y: scroll;
+    background: var(--lightBlue);
+}
