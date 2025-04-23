@@ -36,7 +36,7 @@ auth.onAuthStateChanged(async (user) => {
         profileForm['bio'].value = userData.bio || '';
         profileForm['major'].value = userData.major || '';
         profileForm['year'].value = userData.year || '';
-        profileForm['classes'].value = userData.classes || '';
+        profileForm['courses'].value = userData.courses || '';
         profileForm['projects'].value = userData.projects || '';
         profileForm['skills'].value = userData.skills || '';
         profileForm['achievements'].value = userData.achievements || '';
@@ -67,7 +67,7 @@ profileForm.addEventListener('submit', async (e) => {
   const bio = profileForm['bio'].value || '';
   const major = profileForm['major'].value || '';
   const year = profileForm['year'].value || '';
-  const classes = profileForm['classes'].value || '';
+  const courses = profileForm['courses'].value || '';
   const projects = profileForm['projects'].value || '';
   const skills = profileForm['skills'].value || '';
   const achievements = profileForm['achievements']?.value || '';
@@ -88,7 +88,7 @@ profileForm.addEventListener('submit', async (e) => {
     bio,
     year,
     major,
-    classes,
+    courses,
     projects,
     skills,
     achievements,

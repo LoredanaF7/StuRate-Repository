@@ -12,7 +12,7 @@ const userProjectsElement = document.getElementById('user-projects');
 const userEmailElement = document.getElementById('user-email');
 const userMajorElement = document.getElementById('user-major');
 const userYearElement = document.getElementById('user-year');
-const userClassesElement = document.getElementById('user-classes');
+const userCoursesElement = document.getElementById('user-courses');
 const userAchievementsElement = document.getElementById('user-achievements');
 const userLinkedInElement = document.getElementById('user-linkedin');
 
@@ -74,7 +74,7 @@ async function loadProfileData(userId) {
   
       displayProjects(userData.projects || '');
       
-      displayClasses(userData.classes || '');
+      displayCourses(userData.courses || '');
       
       displayAchievements(userData.achievements || '');
       
@@ -140,23 +140,23 @@ function displayProjects(projectsData) {
   }
 }
 
-function displayClasses(classesData) 
+function displayCourses(coursesData) 
 {
-  userClassesElement.innerHTML = '';
+  userCoursesElement.innerHTML = '';
   
-  if (classesData && classesData.trim() !== '') {
-    const classes = classesData.split(',').map(cls => cls.trim());
+  if (coursesData && coursesData.trim() !== '') {
+    const courses = coursesData.split(',').map(cls => cls.trim());
     
-    classes.forEach(cls => {
+    courses.forEach(cls => {
       if (cls) {
         const chip = document.createElement('div');
         chip.className = 'chip';
         chip.textContent = cls;
-        userClassesElement.appendChild(chip);
+        userCoursesElement.appendChild(chip);
       }
     });
   } else {
-    userClassesElement.textContent = 'No classes listed.';
+    userCoursesElement.textContent = 'No courses listed.';
   }
 }
 

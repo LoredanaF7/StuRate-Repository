@@ -1,4 +1,3 @@
-/* I called each section a chip becasue that's how materialze did it lol. Trying to keeo things form the template*/
 
 .profile-pic {
   width: 150px;
@@ -72,8 +71,8 @@
 
 /* Project items styles */
 #user-projects .collection-item {
-  background-color: #f9f9f9;
-  border-left: 3px solid #006747;
+  background-color: #e1f5ff;
+  border-left: 3px solid #45a3e6;
 }
 
 /* Achievements styles*/
@@ -82,8 +81,39 @@
   border-left: 3px solid #45a3e6;
 }
 
-/* Classes styles */
-#user-classes .chip {
-  background-color: #f1f8e9;
+/* Courses styles */
+#user-courses .chip {
+  background-color: #e6f4ff;
   color: #558b2f;
+}
+
+/* THE STARS */
+.rating-section {
+  margin-top: 15px;
+  margin-bottom: 20px;
+}
+
+.star-rating {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 5px;
+}
+
+.star-rating .star {
+  color: #FFD700;
+  font-size: 34px;
+  margin: 0 2px;
+}
+
+.rating-text {
+  font-weight: bold;
+  font-size: 20px;
+  color: #006747;
+}
+
+h4 {
+  font-family: "Georgia", serif;  
+  font-size: 50px;
+  font-weight: 600;
+  color: #000000;
 }

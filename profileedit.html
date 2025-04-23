@@ -15,7 +15,7 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
   <link rel="stylesheet" href="css/styles.css">
 </head>
-<body class="grey lighten-3" style="background: url('https://www.unt.edu/allabout/images/16_854_bustling-campus-behind-eagle-statue-aerial-1001.jpg') center/cover no-repeat fixed;">
+<body class="grey lighten-7" style="background: url('https://www.unt.edu/allabout/images/16_854_bustling-campus-behind-eagle-statue-aerial-1001.jpg') center/cover no-repeat fixed;">
   
   <!-- NAVBAR -->
   <nav class="z-depth-0 grey lighten-4">
@@ -103,13 +103,13 @@
         <form id="profileForm">
           <!-- First Name -->
           <div class="mb-3">
-            <label for="classes" class="form-label">First name</label>
-            <textarea class="form-control" id="firstName" name="classes" rows="3" placeholder="e.g."></textarea>
+            <label for="courses" class="form-label">First name</label>
+            <textarea class="form-control" id="firstName" name="courses" rows="3" placeholder="e.g."></textarea>
           </div>
           <!-- Last Name -->
           <div class="mb-3">
-            <label for="classes" class="form-label">Last Name </label>
-            <textarea class="form-control" id="lastName" name="classes" rows="3" placeholder="e.g."></textarea>
+            <label for="courses" class="form-label">Last Name </label>
+            <textarea class="form-control" id="lastName" name="courses" rows="3" placeholder="e.g."></textarea>
           </div>
           <!-- Year in School -->
           <div class="mb-3">
@@ -134,10 +134,11 @@
             <textarea class="form-control" id="major" name="major" rows="3" placeholder="e.g., Computer Science"></textarea>
           </div>
 
-          <!-- Completed Classes -->
+          <!-- Completed Courses -->
           <div class="mb-3">
-            <label for="classes" class="form-label">Completed Classes</label>
-            <textarea class="form-control" id="classes" name="classes" rows="3" placeholder="e.g., CSCE 2100, CSCE 3530"></textarea>
+            <label for="courses" class="form-label">Completed Courses</label>
+            <input type="text" class="form-control" id="courses" name="courses" placeholder="e.g., CSCE 2100, CSCE 3530" />
+            <small class="form-text text-muted">List multiple entries, separated by commas.</small>
           </div>
 
           <!-- Personal Projects -->
@@ -150,6 +151,7 @@
           <div class="mb-3">
             <label for="skills" class="form-label">Skills</label>
             <input type="text" class="form-control" id="skills" name="skills" placeholder="e.g., JavaScript, Python, Git" />
+            <small class="form-text text-muted">List multiple entries, separated by commas.</small>
           </div>
 
           <!-- Achievements -->
