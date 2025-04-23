@@ -15,6 +15,7 @@ profileForm.addEventListener('submit', async (e) => {
   // Get form values
   const firstName = profileForm['firstName'].value;
   const lastName = profileForm['lastName'].value;
+  const major = profileForm['major'].value;
   const year = profileForm['year'].value;
   const classes = profileForm['classes'].value;
   const projects = profileForm['projects'].value;
