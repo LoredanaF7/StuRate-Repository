@@ -8,25 +8,17 @@ const accountDetails = document.querySelector('.account-details');
 
 const setupUI = (user) => {
   if (user) {           //if logged in then show logged in elements
-    //account info
-    getDoc(doc(db, 'users', user.uid)).then(docSnapshot => {
-      const html = `
-      <div>Logged in as ${user.email}</div>
-      <div>${docSnapshot.data().bio}</div>
-    `;
-    accountDetails.innerHTML = html;
-    })
     //toggle UI elements
     loggedInLinks.forEach(item => item.style.display = 'block');
     loggedOutLinks.forEach(item => item.style.display = 'none');
   } else {              //if logged out then show the logged out elements
-    //hide account info
-    accountDetails.innerHTML = '';
     //toggle UI elements
     loggedInLinks.forEach(item => item.style.display = 'none');
     loggedOutLinks.forEach(item => item.style.display = 'block');
   }
 }
+  
+
 
 //setup guides
 const setupGuides = (data) => {
@@ -45,10 +37,7 @@ const setupGuides = (data) => {
     })
   
     guideList.innerHTML = html;
-  } else {
-    //guideList.innerHTML = '<h5 class="center-align">Login to view guides<h5>'       //use for profile info and stuff for future
-  }
-
+  } 
 }
 
 // setup materialize components
