@@ -202,6 +202,24 @@ function displayLinkedIn(linkedinUrl) {
   }
 }
 
+//logout functionality
+const logoutButton = document.getElementById('logout');
+
+logoutButton.addEventListener('click', (e) => {
+  e.preventDefault();
+  
+  // Sign out the user
+  auth.signOut().then(() => {
+    // Display a message 
+    alert('You have successfully logged out!');
+    // Redirect to the index page
+    window.location.href = 'index.html';
+  }).catch(err => {
+    console.log('Error logging out:', err);
+  });
+});
+
+
 // Setup Materialize components
 document.addEventListener('DOMContentLoaded', function() {
   var modals = document.querySelectorAll('.modal');
