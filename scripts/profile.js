@@ -12,7 +12,6 @@ const userProjectsElement = document.getElementById('user-projects');
 const userEmailElement = document.getElementById('user-email');
 const userMajorElement = document.getElementById('user-major');
 const userYearElement = document.getElementById('user-year');
-const userCoursesElement = document.getElementById('user-courses');
 const userAchievementsElement = document.getElementById('user-achievements');
 const userLinkedInElement = document.getElementById('user-linkedin');
 const userGithubElement = document.getElementById('user-github');
@@ -75,7 +74,6 @@ async function loadProfileData(userId) {
   
       displayProjects(userData.projects || '');
       
-      displayCourses(userData.courses || '');
       
       displayAchievements(userData.achievements || '');
       
@@ -141,25 +139,6 @@ function displayProjects(projectsData) {
   }
 }
 
-function displayCourses(coursesData) 
-{
-  userCoursesElement.innerHTML = '';
-  
-  if (coursesData && coursesData.trim() !== '') {
-    const courses = coursesData.split(',').map(cls => cls.trim());
-    
-    courses.forEach(cls => {
-      if (cls) {
-        const chip = document.createElement('div');
-        chip.className = 'chip';
-        chip.textContent = cls;
-        userCoursesElement.appendChild(chip);
-      }
-    });
-  } else {
-    userCoursesElement.textContent = 'No courses listed.';
-  }
-}
 
 function displayAchievements(achievementsData) {
   userAchievementsElement.innerHTML = '';

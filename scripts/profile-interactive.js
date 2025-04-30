@@ -61,8 +61,28 @@ document.addEventListener('DOMContentLoaded', function() {
       ratingText.textContent = rating + '.0';
     }
   }
+
+  document.addEventListener('DOMContentLoaded', function () {
+    const bgSelect = document.getElementById("bg-color-select");
+    const body = document.getElementById("body");
   
-  // Background Customizer
+    // Load saved background color from localStorage
+    const savedColor = localStorage.getItem("bgColorClass");
+    if (savedColor) {
+      body.className = savedColor;
+      bgSelect.value = savedColor;
+    }
+  
+    // When user changes the background color
+    bgSelect.addEventListener("change", function () {
+      const selectedColor = bgSelect.value;
+      body.className = selectedColor;
+      localStorage.setItem("bgColorClass", selectedColor);
+    });
+  });
+  
+  
+  /*// Background Customizer
   function initBackgroundCustomizer() {
     // Create background customizer HTML
     const customizer = document.createElement('div');
@@ -108,4 +128,4 @@ document.addEventListener('DOMContentLoaded', function() {
     if (savedColor) {
       document.body.className = savedColor;
     }
-  }
+  }*/

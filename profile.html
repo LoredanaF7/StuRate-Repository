@@ -11,7 +11,8 @@
   <link rel="stylesheet" href="css/profile.css">
   <title>Student Portfolio</title>
 </head>
-<body class="blue lighten-2">
+<body id="body" class="blue lighten-2">
+
 
   <!-- NAVBAR -->
    <nav class="z-depth-0 grey lighten-4">
@@ -111,8 +112,21 @@
                 <div class="contact-section">
                   <p id="user-email" class="contact-item">Email:</p>
                   <p id="user-linkedin" class="contact-item">LinkedIn:</p>
-                  <p id="user-github" class="contact-item">GitHub:</p>
+                  <p id="user-github" class="contact-item">GitHub: https://github.com/</p>
                 </div>
+
+                <!--Choose a color -->
+                <div class="section">
+                  <label for="bg-color-select"><strong>Choose Background Color:</strong></label>
+                  <select id="bg-color-select" class="browser-default">
+                    <option value="blue lighten-2">Blue</option>
+                    <option value="green lighten-3">Green</option>
+                    <option value="pink lighten-4">Pink</option>
+                    <option value="white">White</option>
+                    <option value="grey lighten-4">Grey</option>
+                  </select>
+                </div>
+                
                 
                 <!-- Rating Section -->
                 <div class="rating-section">
@@ -151,8 +165,12 @@
                 <div class="section">
                   <h5>Courses</h5>
                   <div id="user-courses" class="chips">
-                    <!-- Courses will be loaded as chips here -->
+                    <div class="chip">Data Structures</div>
+                    <div class="chip">Web Programming</div>
+                    <div class="chip">Database Systems</div>
+                    <div class="chip">Software Engineering</div>
                   </div>
+                  
                 </div>
                 <div class="divider"></div>
                 <div class="section">
