@@ -16,9 +16,14 @@
 h1{
     color: var(--darkGray);
     text-align: left;
-    margin: 70px 70px 0;
-    font-size: 50px;
-    /* background: var(--blueGray); */
+    margin: 0 auto 0;
+    font-size: 60px;
+    width: fit-content;
+    height: 20%;
+    background: var(--navGray);
+    margin: 40px 20px;
+    padding: 40px 40px;
+    border-radius: 20px;
 }
 
 h2{
@@ -79,11 +84,11 @@ button .fa-solid{
     text-align: left;
     margin: 0 auto 0;
     font-size: 30px;
-    width: 80%;
+    width: 60%;
     height: 20%;
     background: var(--blue);
-    margin: 40px 20px;
-    padding: 15px 32px;
+    margin: 20px 20px;
+    padding: 24px 48px;
     border-radius: 20px;
 }
 
