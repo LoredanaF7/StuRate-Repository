@@ -1,6 +1,6 @@
 :root{
     --lightBlue: #e4f2ff; /* Search bar color */
-    --blue: #8dc5fe;      /* Hover color */
+    --blue: #6caff2;      /* Hover color */
     --darkGray: #213140;  /* Background color */
     --blueGray: #34495e;  /* Text color */
     --navGray: #eeeeee;   /* Navigation bar color */
@@ -37,7 +37,7 @@ body{
     position: relative;
     width: 400px; /* old: 600px */
     height: 64px; /* old: auto */
-    background: var(--lightBlue);
+    background: var(--whi);
     margin: 0 auto;
     padding: 0;
     border-radius: 20px 20px 0 0; /* old: 20px */
@@ -98,7 +98,7 @@ button .fa-solid{
     width: 100%;
     box-sizing: border-box;
     font-size: 16px;
-    color: var(--blueGray);
+    color: #eeeeee;
 }
 
 .result-box ul li:hover{

@@ -72,13 +72,11 @@
 /* Project items styles */
 #user-projects .collection-item {
   background-color: #e1f5ff;
-  border-left: 3px solid #45a3e6;
 }
 
 /* Achievements styles*/
 #user-achievements .collection-item {
   background-color: #e1f5ff;
-  border-left: 3px solid #45a3e6;
 }
 
 /* Courses styles */
@@ -116,4 +114,83 @@ h4 {
   font-size: 50px;
   font-weight: 600;
   color: #000000;
+}
+/* Contact section styling */
+.contact-section {
+  margin-top: 15px;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.contact-item {
+  margin: 5px 0;
+  font-size: 0.9rem;
+}
+
+/* Move the rating section styling here */
+.rating-section {
+  margin-top: 15px;
+  margin-bottom: 20px;
+}
+
+.star-rating {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 5px;
+}
+
+.star-rating .star {
+  color: #FFD700; /* Gold color for stars */
+  font-size: 24px;
+  margin: 0 2px;
+}
+
+.rating-text {
+  font-weight: bold;
+  font-size: 16px;
+  color: #006747; /* UNT green color */
+}
+
+/* Achievements chips styling */
+#user-achievements .chip {
+  background-color: #fff8e1;
+  color: #ff6f00;
+  margin: 5px;
+  font-weight: 500;
+  border-left: 3px solid #ff6f00;
+}
+
+/* Larger font for first and last name */
+#sidebar-first-name, #sidebar-last-name
+{
+  font-size: 1.8rem;
+  font-weight: 500;
+}
+
+/* Different size for header */
+#header-first-name, #header-last-name {
+  font-size: 2.4rem;
+  font-weight: 500;
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+
+.portfolio-text {
+  font-size: 2.4rem;
+  font-weight: 500 ;
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+
+/* Skills chips styling - keep your existing styling */
+#user-skills .chip {
+  background-color: #e6f4ff;
+  color: #0277bd;
+  margin: 5px;
+}
+
+/* Courses chips styling */
+#user-courses .chip {
+  background-color: #e8f5e9;
+  color: #2e7d32;
+  margin: 5px;
+  border-left: 3px solid #2e7d32;
 }

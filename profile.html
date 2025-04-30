@@ -106,6 +106,15 @@
                   <div class="chip major-chip" id="user-major"></div>
                   <div class="chip year-chip" id="user-year"></div>
                 </div>
+                
+                <!-- Contact Section (moved here) -->
+                <div class="contact-section">
+                  <p id="user-email" class="contact-item">Email:</p>
+                  <p id="user-linkedin" class="contact-item">LinkedIn:</p>
+                  <p id="user-github" class="contact-item">GitHub:</p>
+                </div>
+                
+                <!-- Rating Section -->
                 <div class="rating-section">
                   <div class="star-rating">
                     <i class="material-icons star">star</i>
@@ -114,16 +123,18 @@
                     <i class="material-icons star">star</i>
                     <i class="material-icons star">star</i>
                   </div>
-                  <div class="rating-text">5.0</div>
                 </div>
               </div>
-              <div class="col s12 m8">
-                <h4><span id="header-first-name"></span> <span id="header-last-name"></span>'s Portfolio</h4>
-                <div class="divider"></div>
-                <div class="section">
-                  <h5>About Me</h5>
+      <div class="col s12 m8">
+        <h4 class="header-title">
+          <span id="header-first-name"></span> 
+          <span id="header-last-name"></span>
+          <span class="portfolio-text">'s Portfolio</span>
+        </h4>       
+             <div class="section">
+                <h5>About Me</h5>
                   <p id="user-bio">No bio information available</p>
-                </div>
+              </div>
                 <div class="divider"></div>
                 <div class="section">
                   <h5>Skills</h5>
@@ -140,19 +151,15 @@
                 <div class="section">
                   <h5>Courses</h5>
                   <div id="user-courses" class="chips">
+                    <!-- Courses will be loaded as chips here -->
                   </div>
                 </div>
                 <div class="divider"></div>
                 <div class="section">
                   <h5>Achievements</h5>
-                  <ul id="user-achievements" class="collection">
-                  </ul>
-                </div>
-                <div class="divider"></div>
-                <div class="section">
-                  <h5>Contact</h5>
-                  <p id="user-email">Email: Loading...</p>
-                  <p id="user-linkedin">LinkedIn: Loading...</p>
+                  <div id="user-achievements" class="chips">
+                    <!-- Achievements will be loaded as chips here -->
+                  </div>
                 </div>
               </div>
             </div>
@@ -192,5 +199,6 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
   <script type="module" src="scripts/auth.js"></script>
   <script type="module" src="scripts/profile.js"></script>
+  <script src="scripts/profile-interactive.js"></script>
 </body>
 </html>

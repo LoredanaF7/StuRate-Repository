@@ -15,6 +15,7 @@ const userYearElement = document.getElementById('user-year');
 const userCoursesElement = document.getElementById('user-courses');
 const userAchievementsElement = document.getElementById('user-achievements');
 const userLinkedInElement = document.getElementById('user-linkedin');
+const userGithubElement = document.getElementById('user-github');
 
 // Profile ID
 const params = new URLSearchParams(window.location.search);
