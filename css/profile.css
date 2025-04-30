@@ -1,9 +1,9 @@
-/* I called each section a chip becasue that's how materialze did it lol. Trying to keeo things form the template*/
+
 .profile-pic {
   width: 150px;
   height: 150px;
   object-fit: cover;
-  border: 4px solid #288cff;
+  border: 4px solid #28a2ff;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
@@ -20,7 +20,8 @@
   padding: 30px;
 }
 
-.chips .chip {
+/* Styling for the little bubbles(chips) */
+.chip {
   margin: 5px;
   background-color: #f5f5f5;
   font-weight: 500;
@@ -33,10 +34,10 @@
 
 .year-chip {
   background-color: #e8f5e9 !important;
-  color: #78b2ec;
+  color: #2e7d32;
 }
 
-
+/* Collection items styling */
 .collection {
   border: none;
   border-radius: 4px;
@@ -46,11 +47,6 @@
 .collection .collection-item {
   border-bottom: 1px solid #f5f5f5;
   padding: 15px;
-  transition: background-color 0.2s ease;
-}
-
-.collection .collection-item:hover {
-  background-color: #fafafa;
 }
 
 .section {
@@ -58,7 +54,7 @@
 }
 
 .section h5 {
-  color: #001d67;
+  color: #006747;
   margin-bottom: 15px;
   font-weight: 500;
 }
@@ -67,62 +63,134 @@
   margin: 20px 0;
 }
 
-.section p {
-  margin: 10px 0;
-}
-
-a {
-  color: #006747;
-  transition: color 0.2s ease;
-}
-
-a:hover {
-  color: #00b383;
-  text-decoration: underline;
-}
-
-/* Materialize stuf!!!!!!!*/
-@media (max-width: 600px) {
-  .profile-pic {
-    width: 120px;
-    height: 120px;
-  }
-  
-  .card .card-content {
-    padding: 20px;
-  }
-}
-
-/* Page animation */
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
-}
-
-.card {
-  animation: fadeIn 1s ease-in-out;
-}
-
-/* Skills chips styling */
+/* Skills section styles */
 #user-skills .chip {
   background-color: #e6f4ff;
   color: #0277bd;
 }
 
-/* Project items styling */
+/* Project items styles */
 #user-projects .collection-item {
-  background-color: #f9f9f9;
-  border-left: 3px solid #006747;
+  background-color: #e1f5ff;
 }
 
-/* Achievements styling */
+/* Achievements styles*/
 #user-achievements .collection-item {
-  background-color: #fff8e1;
-  border-left: 3px solid #378cd1;
+  background-color: #e1f5ff;
 }
 
-/* Classes chips styling */
-#user-classes .chip {
-  background-color: #f1f8e9;
+/* Courses styles */
+#user-courses .chip {
+  background-color: #e6f4ff;
   color: #558b2f;
+}
+
+/* THE STARS */
+.rating-section {
+  margin-top: 15px;
+  margin-bottom: 20px;
+}
+
+.star-rating {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 5px;
+}
+
+.star-rating .star {
+  color: #FFD700;
+  font-size: 34px;
+  margin: 0 2px;
+}
+
+.rating-text {
+  font-weight: bold;
+  font-size: 20px;
+  color: #006747;
+}
+
+h4 {
+  font-family: "Georgia", serif;  
+  font-size: 50px;
+  font-weight: 600;
+  color: #000000;
+}
+/* Contact section styling */
+.contact-section {
+  margin-top: 15px;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.contact-item {
+  margin: 5px 0;
+  font-size: 0.9rem;
+}
+
+/* Move the rating section styling here */
+.rating-section {
+  margin-top: 15px;
+  margin-bottom: 20px;
+}
+
+.star-rating {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 5px;
+}
+
+.star-rating .star {
+  color: #FFD700; /* Gold color for stars */
+  font-size: 24px;
+  margin: 0 2px;
+}
+
+.rating-text {
+  font-weight: bold;
+  font-size: 16px;
+  color: #006747; /* UNT green color */
+}
+
+/* Achievements chips styling */
+#user-achievements .chip {
+  background-color: #fff8e1;
+  color: #ff6f00;
+  margin: 5px;
+  font-weight: 500;
+  border-left: 3px solid #ff6f00;
+}
+
+/* Larger font for first and last name */
+#sidebar-first-name, #sidebar-last-name
+{
+  font-size: 1.8rem;
+  font-weight: 500;
+}
+
+/* Different size for header */
+#header-first-name, #header-last-name {
+  font-size: 2.4rem;
+  font-weight: 500;
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+
+.portfolio-text {
+  font-size: 2.4rem;
+  font-weight: 500 ;
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+
+/* Skills chips styling - keep your existing styling */
+#user-skills .chip {
+  background-color: #e6f4ff;
+  color: #0277bd;
+  margin: 5px;
+}
+
+/* Courses chips styling */
+#user-courses .chip {
+  background-color: #e8f5e9;
+  color: #2e7d32;
+  margin: 5px;
+  border-left: 3px solid #2e7d32;
 }

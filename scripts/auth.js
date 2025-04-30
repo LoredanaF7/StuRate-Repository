@@ -8,9 +8,6 @@ import { getFirestore, collection, getDocs, addDoc, onSnapshot, setDoc, doc } fr
 const auth = getAuth();
 const db = getFirestore();
 
-
-
-
 //listen for auth status changes
 onAuthStateChanged(auth, (user) => {
   if(user) {        //if logged in show guides
@@ -26,7 +23,7 @@ onAuthStateChanged(auth, (user) => {
     setupUI();  
   }
 })
-
+/*
 //create new guide
 const createForm = document.querySelector('#create-form');
 createForm.addEventListener('submit', (e) => {
@@ -37,15 +34,16 @@ createForm.addEventListener('submit', (e) => {
     content: createForm['content'].value
   }).then(() => {
     //close modal and reset form
-    const modal = document.querySelector('#modal-create');
-    M.Modal.getInstance(modal).close();
+    //const modal = document.querySelector('#modal-create');
+    //M.Modal.getInstance(modal).close();
     createForm.reset();
   }).catch(err => {
     console.log(err.message)
   })
 })
+*/
 
-//sign up
+// sign up
 const signupForm = document.querySelector('#signup-form');
 signupForm.addEventListener('submit', (e) => {
   e.preventDefault();
@@ -56,9 +54,7 @@ signupForm.addEventListener('submit', (e) => {
 
   // sign up the user
   createUserWithEmailAndPassword(auth, email, password).then(cred => {
-    return setDoc(doc(db, 'users', cred.user.uid), {
-      bio: signupForm['signup-bio'].value
-    });
+    // Successfully signed up
   }).then(() => {
     // close the signup modal & reset form
     const modal = document.querySelector('#modal-signup');
@@ -67,9 +63,22 @@ signupForm.addEventListener('submit', (e) => {
     
     window.location.href = "profileedit.html"; // redirect to profileedit.html when done signing up
   }).catch(err => {
-    console.log(err.message); //for any possible error
-  }); 
+    const errorMsg = document.createElement('div');
+    errorMsg.className = 'red-text';
+    if (err.code === 'auth/email-already-in-use') {
+      errorMsg.textContent = 'An account with this email already exists.';
+    } else {
+      errorMsg.textContent = err.message; // fallback to default error
+    }
+
+    // Remove any previous error messages before appending
+    const existingError = signupForm.querySelector('.red-text');
+    if (existingError) existingError.remove();
+
+    signupForm.appendChild(errorMsg);
+  });
 });
+
 
 //logout 
 const logout = document.querySelector('#logout');
@@ -83,8 +92,7 @@ const loginForm = document.querySelector('#login-form');
 loginForm.addEventListener('submit', (e) => {
   e.preventDefault();
 
-
-  //get user infor
+  //get user info
   const email = loginForm['login-email'].value;
   const password = loginForm['login-password'].value;
 
@@ -94,4 +102,14 @@ loginForm.addEventListener('submit', (e) => {
     M.Modal.getInstance(modal).close();
     loginForm.reset();
   })
+  .catch(err => {
+    const errorMsg = document.createElement('div');
+    errorMsg.className = 'red-text';
+    errorMsg.textContent = 'Incorrect email or password. Please try again.';
+
+    const existingError = loginForm.querySelector('.red-text');
+    if (existingError) existingError.remove();
+
+    loginForm.appendChild(errorMsg);
+  });
 })

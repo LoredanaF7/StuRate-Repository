@@ -7,72 +7,58 @@
   <!-- Compiled and minified CSS -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
   <link rel="stylesheet" href="css/resultStyles.css">
+  <link rel="stylesheet" href="css/styles.css">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
   <script src="https://kit.fontawesome.com/fa81d8c223.js" crossorigin="anonymous"></script>
   <title>Search Results</title>
 </head>
-<body class="grey lighten-3">
-  <!-- NAVBAR -->
-  <body class="grey lighten-3" style="background: url('https://www.unt.edu/allabout/images/16_854_bustling-campus-behind-eagle-statue-aerial-1001.jpg') center/cover no-repeat fixed;">
 
+<body class="blue lighten-4">
+
+  <!-- NAVBAR -->
   <nav class="z-depth-0 grey lighten-4">
     <div class="nav-wrapper container">
-      <a href="#" class="brand-logo">
+      <a href="index.html" class="brand-logo">
         <img src="images/untLogo.png" style="width: 45px; margin-top: 10px;">
       </a>
 
       <!-- SEARCH BAR -->
-      <div class="search-box">
+    <div class="search-box">
         <div class="row">
           <input type="text" id="input-box" placeholder="Search for students..." autocomplete="off">
           <button id="search-button"><i class="fa-solid fa-magnifying-glass"></i></button>
         </div>
-      </div>
-      <div class="result-box"></div>
+    </div>
+    <div class="result-box"></div>
 
-      <ul id="nav-mobile" class="right hide-on-med-and-down">
-          <li class="logged-in" style="display: none;">  <!--hard coded to be hidden until firebase kicks in #11-->
-            <a href="#" class="grey-text modal-trigger" data-target="modal-account">Account</a>
-          </li>
-          <li class="logged-in" style="display: none;">
-            <a href="#" class="grey-text" id="profile">Profile</a>
-          </li>
-          <li class="logged-in" style="display: none;">
-            <a href="#" class="grey-text" id="logout">Logout</a>
-          </li>
-          <!--
-          <li class="logged-in" style="display: none;">
-            <a href="#" class="grey-text modal-trigger" data-target="modal-create">Create Guide</a>
-          </li>
-        -->
-          <li class="logged-out" style="display: none;">
-            <a href="#" class="grey-text modal-trigger" data-target="modal-login">Login</a>
-          </li>
-          <li class="logged-out" style="display: none;">
-            <a href="#" class="grey-text modal-trigger" data-target="modal-signup">Sign up</a>
-          </li>
+    <!-- Logged-in User Navbar -->
+    <ul id="nav-mobile" class="right hide-on-med-and-down">
+      <li class="logged-in" style="display: none;">
+        <a href="index.html" class="grey-text">Home</a>
+      </li>
+      <li class="logged-in" style="display: none;">
+        <a href="profile.html" class="grey-text">Profile</a>
+      </li>
+      <li class="logged-in" style="display: none;">
+        <a href="#" class="grey-text" id="logout">Logout</a>
+      </li>
+
+        <!-- Logged-out User Navbar -->
+        <li class="logged-out" style="display: none;">
+          <a href="#" class="grey-text modal-trigger" data-target="modal-login">Login</a>
+        </li>
+        <li class="logged-out" style="display: none;">
+          <a href="#" class="grey-text modal-trigger" data-target="modal-signup">Sign up</a>
+        </li>
       </ul>
     </div>
   </nav>
 
-  <!-- SIGN UP MODAL -->
-  <div id="modal-signup" class="modal">
-    <div class="modal-content">
-      <h4>Sign up</h4><br />
-      <form id="signup-form">
-        <div class="input-field">
-          <input type="email" id="signup-email" required />
-          <label for="signup-email">Email address</label>
-        </div>
-        <div class="input-field">
-          <input type="password" id="signup-password" required />
-          <label for="signup-password">Choose password</label>
-        </div>
-        <div class="input-field">                         this div adds a bio field in the sign up tabe of the
-          <input type="text" id="signup-bio" required />
-          <label for="signup-bio">One Line Bio</label>
-        </div>
-        <button class="btn yellow darken-2 z-depth-0">Sign up</button>
-      </form>
+  <!-- ACCOUNT MODAL -->
+  <div id="modal-account" class="modal">
+    <div class="modal-content center-align">
+      <h4>Account details</h4><br />
+      <div class="account-details"></div>
     </div>
   </div>
 
@@ -93,6 +79,29 @@
       </form>
     </div>
   </div>
+
+  <!-- SIGN UP MODAL -->
+  <div id="modal-signup" class="modal">
+    <div class="modal-content">
+      <h4>Sign up</h4><br />
+      <form id="signup-form">
+        <div class="input-field">
+          <input type="email" id="signup-email" required />
+          <label for="signup-email">Email address</label>
+        </div>
+        <div class="input-field">
+          <input type="password" id="signup-password" required />
+          <label for="signup-password">Choose password</label>
+        </div>
+        <div class="input-field">
+          <input type="text" id="signup-bio" required />
+          <label for="signup-bio">One Line Bio</label>
+        </div>
+        <button class="btn yellow darken-2 z-depth-0">Sign up</button>
+      </form>
+    </div>
+  </div>
+    
 
   <h1 id="results">Search Results</h1>
   <!-- Display your results here -->
@@ -147,9 +156,15 @@
     const db = getFirestore(app);
     const auth = getAuth(app);
 
-    // Now you can use db or auth in this page
+    window.auth = auth;
+    window.db = db;
   </script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
   <script src="scripts/autocomplete.js"></script>
+  <script src="scripts/auth.js"></script>
+  <script src="scripts/index.js"></script>
+  
 </body>
 </html>
 

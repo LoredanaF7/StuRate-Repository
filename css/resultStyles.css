@@ -1,6 +1,6 @@
 :root{
     --lightBlue: #e4f2ff; /* Search bar color */
-    --blue: #8dc5fe;      /* Hover color */
+    --blue: #6caff2;      /* Hover color */
     --darkGray: #213140;  /* Background color */
     --blueGray: #34495e;  /* Text color */
     --navGray: #eeeeee;   /* Navigation bar color */
@@ -16,9 +16,14 @@
 h1{
     color: var(--darkGray);
     text-align: left;
-    margin: 70px 70px 0;
-    font-size: 50px;
-    /* background: var(--blueGray); */
+    margin: 0 auto 0;
+    font-size: 60px;
+    width: fit-content;
+    height: 20%;
+    background: var(--navGray);
+    margin: 40px 20px;
+    padding: 40px 40px;
+    border-radius: 20px;
 }
 
 h2{
@@ -37,7 +42,7 @@ body{
     position: relative;
     width: 400px; /* old: 600px */
     height: 64px; /* old: auto */
-    background: var(--lightBlue);
+    background: var(--whi);
     margin: 0 auto;
     padding: 0;
     border-radius: 20px 20px 0 0; /* old: 20px */
@@ -79,11 +84,11 @@ button .fa-solid{
     text-align: left;
     margin: 0 auto 0;
     font-size: 30px;
-    width: 80%;
+    width: 60%;
     height: 20%;
     background: var(--blue);
-    margin: 40px 20px;
-    padding: 15px 32px;
+    margin: 20px 20px;
+    padding: 24px 48px;
     border-radius: 20px;
 }
 
@@ -98,7 +103,7 @@ button .fa-solid{
     width: 100%;
     box-sizing: border-box;
     font-size: 16px;
-    color: var(--blueGray);
+    color: #eeeeee;
 }
 
 .result-box ul li:hover{

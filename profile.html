@@ -11,10 +11,11 @@
   <link rel="stylesheet" href="css/profile.css">
   <title>Student Portfolio</title>
 </head>
-<body class="grey lighten-3" style="background: url('https://www.unt.edu/allabout/images/16_854_bustling-campus-behind-eagle-statue-aerial-1001.jpg') center/cover no-repeat fixed;">
+<body id="body" class="blue lighten-2">
+
 
   <!-- NAVBAR -->
-  <nav class="z-depth-0 grey lighten-4">
+   <nav class="z-depth-0 grey lighten-4">
     <div class="nav-wrapper container">
       <a href="index.html" class="brand-logo">
         <img src="images/untLogo.png" style="width: 45px; margin-top: 10px;">
@@ -22,13 +23,10 @@
       <ul id="nav-mobile" class="right hide-on-med-and-down">
         <!-- Logged-in User Navbar -->
         <li class="logged-in" style="display: none;">
-          <a href="#" class="grey-text modal-trigger" data-target="modal-account">Account</a>
+          <a href="index.html" class="grey-text">Home</a>
         </li>
         <li class="logged-in" style="display: none;">
           <a href="profileedit.html" class="grey-text">Edit Profile</a>
-        </li>
-        <li class="logged-in" style="display: none;">
-          <a href="index.html" class="grey-text">Home</a>
         </li>
         <li class="logged-in" style="display: none;">
           <a href="#" class="grey-text" id="logout">Logout</a>
@@ -101,55 +99,85 @@
           <div class="card-content">
             <div class="row">
               <div class="col s12 m4 center-align">
-                <div class="profile-image-container">
+                <div class="profile-image-circle">
                   <img id="profile-image" src="images/default-profile.png" class="circle responsive-img profile-pic" alt="Profile Picture">
                 </div>
-                <h5 id="user-name">Loading...</h5>
+                <h5><span id="sidebar-first-name"></span> <span id="sidebar-last-name"></span></h5>
                 <div class="section">
-                  <div class="chip major-chip" id="user-major">Loading...</div>
-                  <div class="chip year-chip" id="user-year">Loading...</div>
+                  <div class="chip major-chip" id="user-major"></div>
+                  <div class="chip year-chip" id="user-year"></div>
+                </div>
+                
+                <!-- Contact Section (moved here) -->
+                <div class="contact-section">
+                  <p id="user-email" class="contact-item">Email:</p>
+                  <p id="user-linkedin" class="contact-item">LinkedIn:</p>
+                  <p id="user-github" class="contact-item">GitHub: https://github.com/</p>
+                </div>
+
+                <!--Choose a color -->
+                <div class="section">
+                  <label for="bg-color-select"><strong>Choose Background Color:</strong></label>
+                  <select id="bg-color-select" class="browser-default">
+                    <option value="blue lighten-2">Blue</option>
+                    <option value="green lighten-3">Green</option>
+                    <option value="pink lighten-4">Pink</option>
+                    <option value="white">White</option>
+                    <option value="grey lighten-4">Grey</option>
+                  </select>
+                </div>
+                
+                
+                <!-- Rating Section -->
+                <div class="rating-section">
+                  <div class="star-rating">
+                    <i class="material-icons star">star</i>
+                    <i class="material-icons star">star</i>
+                    <i class="material-icons star">star</i>
+                    <i class="material-icons star">star</i>
+                    <i class="material-icons star">star</i>
+                  </div>
                 </div>
               </div>
-              <div class="col s12 m8">
-                <h4>Student Portfolio</h4>
-                <div class="divider"></div>
-                <div class="section">
-                  <h5>About Me</h5>
-                  <p id="user-bio">Loading bio information...</p>
-                </div>
+      <div class="col s12 m8">
+        <h4 class="header-title">
+          <span id="header-first-name"></span> 
+          <span id="header-last-name"></span>
+          <span class="portfolio-text">'s Portfolio</span>
+        </h4>       
+             <div class="section">
+                <h5>About Me</h5>
+                  <p id="user-bio">No bio information available</p>
+              </div>
                 <div class="divider"></div>
                 <div class="section">
                   <h5>Skills</h5>
                   <div id="user-skills" class="chips">
-                    <!-- Skills will be loaded here -->
                   </div>
                 </div>
                 <div class="divider"></div>
                 <div class="section">
                   <h5>Projects</h5>
                   <ul id="user-projects" class="collection">
-                    <!-- Projects will be loaded here -->
                   </ul>
                 </div>
                 <div class="divider"></div>
                 <div class="section">
-                  <h5>Classes</h5>
-                  <div id="user-classes" class="chips">
-                    <!-- Classes will be loaded here -->
+                  <h5>Courses</h5>
+                  <div id="user-courses" class="chips">
+                    <div class="chip">Data Structures</div>
+                    <div class="chip">Web Programming</div>
+                    <div class="chip">Database Systems</div>
+                    <div class="chip">Software Engineering</div>
                   </div>
+                  
                 </div>
                 <div class="divider"></div>
                 <div class="section">
                   <h5>Achievements</h5>
-                  <ul id="user-achievements" class="collection">
-                    <!-- Achievements will be loaded here -->
-                  </ul>
-                </div>
-                <div class="divider"></div>
-                <div class="section">
-                  <h5>Contact</h5>
-                  <p id="user-email">Email: Loading...</p>
-                  <p id="user-linkedin">LinkedIn: Loading...</p>
+                  <div id="user-achievements" class="chips">
+                    <!-- Achievements will be loaded as chips here -->
+                  </div>
                 </div>
               </div>
             </div>
@@ -189,5 +217,6 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
   <script type="module" src="scripts/auth.js"></script>
   <script type="module" src="scripts/profile.js"></script>
+  <script src="scripts/profile-interactive.js"></script>
 </body>
 </html>
